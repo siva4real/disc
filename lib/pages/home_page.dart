@@ -60,7 +60,7 @@ class HomePage extends StatelessWidget {
 
   Widget _buildCurrentSessionCard(TimerService timerService) {
     return Card(
-      elevation: 4,
+      elevation: 0,
       child: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
@@ -85,12 +85,15 @@ class HomePage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-            Text(
-              timerService.state.formattedTime,
-              style: const TextStyle(
-                fontSize: 48,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'monospace',
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                timerService.state.formattedTime,
+                style: const TextStyle(
+                  fontSize: 56,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'monospace',
+                ),
               ),
             ),
             const SizedBox(height: 8),
@@ -98,7 +101,7 @@ class HomePage extends StatelessWidget {
               _getStatusText(timerService.state.status),
               style: TextStyle(
                 fontSize: 16,
-                color: Colors.grey[600],
+                color: Colors.grey.shade600,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -110,7 +113,7 @@ class HomePage extends StatelessWidget {
 
   Widget _buildTodaysSummaryCard(TimerService timerService) {
     return Card(
-      elevation: 2,
+      elevation: 0,
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -142,13 +145,13 @@ class HomePage extends StatelessWidget {
                       'Total Time',
                       _formatTime(totalWithCurrent),
                       Icons.timer,
-                      Colors.blue,
+                      Colors.grey.shade800,
                     ),
                     _buildSummaryItem(
                       'Sessions',
                       '${sessions.length + (timerService.state.isRunning || timerService.state.isPaused ? 1 : 0)}',
                       Icons.play_circle,
-                      Colors.green,
+                      Colors.grey.shade600,
                     ),
                   ],
                 );
@@ -174,7 +177,10 @@ class HomePage extends StatelessWidget {
           value,
           style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
-        Text(label, style: TextStyle(fontSize: 14, color: Colors.grey[600])),
+        Text(
+          label,
+          style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+        ),
       ],
     );
   }
@@ -182,8 +188,10 @@ class HomePage extends StatelessWidget {
   Widget _buildControlButtons(BuildContext context, TimerService timerService) {
     final state = timerService.state;
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Wrap(
+      alignment: WrapAlignment.center,
+      spacing: 12,
+      runSpacing: 12,
       children: [
         // Start/Pause Button
         ElevatedButton.icon(
@@ -193,8 +201,6 @@ class HomePage extends StatelessWidget {
           icon: Icon(state.isRunning ? Icons.pause : Icons.play_arrow),
           label: Text(state.isRunning ? 'Pause' : 'Start'),
           style: ElevatedButton.styleFrom(
-            backgroundColor: state.isRunning ? Colors.orange : Colors.green,
-            foregroundColor: Colors.white,
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             textStyle: const TextStyle(fontSize: 16),
           ),
@@ -208,8 +214,6 @@ class HomePage extends StatelessWidget {
           icon: const Icon(Icons.stop),
           label: const Text('Stop'),
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.red,
-            foregroundColor: Colors.white,
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             textStyle: const TextStyle(fontSize: 16),
           ),
@@ -223,8 +227,6 @@ class HomePage extends StatelessWidget {
           icon: const Icon(Icons.refresh),
           label: const Text('Reset'),
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.grey[600],
-            foregroundColor: Colors.white,
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             textStyle: const TextStyle(fontSize: 16),
           ),
@@ -305,13 +307,13 @@ class HomePage extends StatelessWidget {
   Color _getStatusColor(TimerStatus status) {
     switch (status) {
       case TimerStatus.running:
-        return Colors.green;
+        return Colors.grey.shade800;
       case TimerStatus.paused:
-        return Colors.orange;
+        return Colors.grey.shade600;
       case TimerStatus.stopped:
-        return Colors.red;
+        return Colors.grey.shade500;
       case TimerStatus.initial:
-        return Colors.grey;
+        return Colors.grey.shade400;
     }
   }
 

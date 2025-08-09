@@ -18,8 +18,7 @@ class DisciplineApp extends StatelessWidget {
         title: 'Discipline Timer',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          colorScheme:
-              ColorScheme.fromSeed(seedColor: const Color(0xFFC0C0C0)),
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFC0C0C0)),
           useMaterial3: true,
           cardTheme: CardThemeData(
             elevation: 0,
